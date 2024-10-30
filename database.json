@@ -1,0 +1,16 @@
+{
+    "books": [
+        {
+            "id":1,
+            "name": "100 anios de soledad",
+            "author": "Gabriel Garcia Marquez",
+            "year" :1965
+        },
+        {
+            "id":2,
+            "name": "Cronicas de una muerte anunciada",
+            "author": "Gabriel Garcia Marquez",
+            "year" :2002
+        }
+    ]
+}
