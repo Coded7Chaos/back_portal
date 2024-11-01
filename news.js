@@ -19,4 +19,4 @@ const NewsModel = mongoose.model("Noticia", NewsSchema)
 
 export default mongoose.model('Noticia', NewsSchema)
 
-
+ 

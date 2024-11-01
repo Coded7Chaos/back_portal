@@ -3,12 +3,13 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import Noticia from "./news.js";
 import moment from "moment";
-
-
+import Docente from "./docentes.js";
+import docentes from "./docentes.js";
+import 'dotenv/config';
 
 const app = express();
 
-const uri = "mongodb+srv://camilarodas:p0rOzEfNa1n1Cek5@portal.1tiu6.mongodb.net/portal?retryWrites=true&w=majority&appName=portal"
+const uri = process.env.DATABASE_URI;
 
 mongoose.connect(uri)
   .then(() => {
@@ -143,5 +144,122 @@ try{
 } catch(error){
     console.error(error);
     res.status(500).json({ message: 'Error al eliminar la noticia' });
+}
+})
+
+
+
+
+
+
+
+//sECCION PARA MANEJAR DATOS DE LOS DOCENTES 
+
+const nuevoDocente = new Docente
+({
+    email: 'example@gmail.com',
+    nombre: 'Orlando',
+    apellido_paterno: 'Rivera',
+    apellido_materno: 'algo',
+    foto: "https://reqres.in/img/faces/1-image.jpg"
+  });
+
+nuevoDocente.save()
+   .then(() => console.log("Datos del docente correctamente guardados"))
+  .catch(err => console.log(err))
+
+
+
+
+
+
+
+
+app.get("/docente", (req, res)=>{
+    Docente.find({})
+    .then(function(docentes){
+        res.json(docentes)
+    })
+    .catch(function(error){
+        console.log(error)
+    })
+})
+
+app.get("/docente/:id", async (req, res) => {
+        const {id} = req.params
+    try{
+        const docente = await Docente.findById(id)
+        if (!docente) {
+            return res.status(404).json({ message: 'Docente no encontrado' });
+        }
+        res.json(docente)
+    } catch(error){
+        console.error(error);
+        res.status(500).json({ message: 'Error al mostrar el docente' });
+    }
+})
+
+app.post("/docente", async (req, res) => {
+    try{
+        console.log(req.body)
+        const nDocente = new Docente({
+            email: req.body.email,
+            nombre: req.body.nombre,
+            apellido_paterno: req.body.apellido_paterno,
+            apellido_materno: req.body.apellido_materno,
+            foto: req.body.foto
+          })
+        await nDocente.save()
+        .then(docentes => {
+            res.status(201).json(nDocente)
+        })
+        
+    } catch(err){
+        console.log(err);
+        res.status(500).json({ message: 'Error al guardar datos del docente' });
+    }
+});
+
+app.put('/docente/:id', async (req, res) => {
+    const { id } = req.params;
+    const { email, nombre, apellido_paterno, apellido_materno, foto } = req.body;
+
+    try {
+        // Busca el docente por su ID
+        const docente = await Docente.findByIdAndUpdate(id, {
+            email,
+            nombre,
+            apellido_paterno,
+            apellido_materno,
+            foto
+        }, { new: true }); // Devuelve el documento actualizado
+
+        if (!docente) {
+            return res.status(404).json({ message: 'Docente no encontrado' });
+        }
+
+        res.status(200).json({
+            message: "Datros del docente actualizados de manera correcta!",
+            docente
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al actualizar datos del docente' });
+    }
+});
+
+
+
+app.delete("/docente/:id", async (req, res) => {
+    const {id} = req.params
+try{
+    const docente = await Docente.findByIdAndDelete(id)
+    if (!docente) {
+        return res.status(404).json({ message: 'Docente no encontrado' });
+    }
+    res.status(200).json({ message: 'Docente eliminado correctamente' })
+} catch(error){
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar el docente' });
 }
 })
