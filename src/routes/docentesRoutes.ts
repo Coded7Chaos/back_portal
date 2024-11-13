@@ -1,7 +1,10 @@
 import express,  { Request, Response } from 'express';
-import { getDocentes, getDocenteById, addDocente, updateDocente, deleteDocente } from '../controllers/docentesController';
+import { getDocentes, getDocenteById, addDocente, updateDocente, deleteDocente } from '../controllers/docentesController.ts';
+//import * as docenteCtrl from '../controllers/docentesController';
 
 const router = express.Router();
+
+//router.post("/",docenteCtrl.addDocente);
 
 router.get("/", getDocentes);
 

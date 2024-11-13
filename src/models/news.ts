@@ -28,7 +28,7 @@ export interface INewsUpdate {
 
 //creando el modelo para las noticias en mongodb mediante mongoose
 
-const NewsSchema  = new mongoose.Schema({
+const NewsSchema  = new Schema({
     title:{ type: String, required: true },
     subtitles:  { type: [String], required: false },
     content: { type: [String], required: true },
@@ -41,6 +41,9 @@ const NewsSchema  = new mongoose.Schema({
     categories: [String],
     publishedAt: { type: Date, default: Date.now, immutable: true },
 
+},{
+    timestamps: true,
+    versionKey:false
 })
 
 const Noticia: Model<INews> = mongoose.model<INews>('Noticia', NewsSchema);

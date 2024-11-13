@@ -1,4 +1,4 @@
-import MenuItems, { IMenuItems } from "../models/menu_items"
+import MenuItems, { IMenuItems } from "../models/menu_items.ts"
 import { Request, Response } from 'express';
 
 export const getItems = async (req: Request, res: Response) :Promise<void> => {

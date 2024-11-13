@@ -1,5 +1,5 @@
 import express,  { Request, Response } from 'express';
-import { getItems, addMenuItem, updateItem, deleteItem } from '../controllers/menuItemsController';
+import { getItems, addMenuItem, updateItem, deleteItem } from '../controllers/menuItemsController.ts';
 
 const router = express.Router();
 

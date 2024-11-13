@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Noticia, { INews, INewsUpdate } from "../models/news.js";
+import Noticia, { INews, INewsUpdate } from "../models/news.ts";
 
 
 
@@ -39,7 +39,7 @@ export const addNews = async (req: Request, res: Response)  :Promise<void> => {
         const nNoticia = new Noticia( newData )
         
         await nNoticia.save()
-            res.status(201).json(nNoticia)
+        res.status(201).json(nNoticia)
     } catch(error: any){ 
         // Verifica si el error es un duplicado de clave única
         if (error.code === 11000 && error.keyPattern.title) {

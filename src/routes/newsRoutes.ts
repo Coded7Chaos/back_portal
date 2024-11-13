@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { getNews, getNewsById, addNews, updateNews, deleteNews } from '../controllers/newsController.js';
+import { getNews, getNewsById, addNews, updateNews, deleteNews } from '../controllers/newsController.ts';
 
 const router = express.Router()
 

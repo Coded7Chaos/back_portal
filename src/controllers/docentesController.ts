@@ -1,4 +1,4 @@
-import Docente, { IDocente } from '../models/docentes'
+import Docente, { IDocente } from '../models/docentes.ts'
 import { Request, Response } from 'express';
 
 
