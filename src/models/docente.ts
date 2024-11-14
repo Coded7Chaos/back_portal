@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema, Model } from "mongoose";
 
 export interface IDocente extends Document {
-    email?: string;
+    cargo?: string;
     nombre: string;
     apellido_paterno: string;
     apellido_materno: string;
@@ -12,7 +12,7 @@ export interface IDocente extends Document {
 //creando el modelo para la informacion de docentes en mongodb mediante mongoose
 
 const DocentesSchema: Schema = new Schema({
-    email: { type: String, required: false },
+    cargo: { type: String, required: false },
     nombre: { type: String, required: true },
     apellido_paterno: { type: String, required: true },
     apellido_materno: { type: String, required: true },
@@ -20,6 +20,6 @@ const DocentesSchema: Schema = new Schema({
     biografia: { type: String, required: false }
 })
 
-const Docentes: Model<IDocente> = mongoose.model<IDocente>("Docente", DocentesSchema);
+const Docente: Model<IDocente> = mongoose.model<IDocente>("Docente", DocentesSchema);
 
-export default Docentes
+export default Docente

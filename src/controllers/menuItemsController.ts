@@ -1,9 +1,9 @@
-import MenuItems, { IMenuItems } from "../models/menu_items.ts"
+import MenuItem, { IMenuItem } from "../models/menu_items.ts"
 import { Request, Response } from 'express';
 
 export const getItems = async (req: Request, res: Response) :Promise<void> => {
     try{
-        const items = await MenuItems.find({});
+        const items = await MenuItem.find({});
         res.json(items);
     }catch(error){
         console.log(error)
@@ -13,9 +13,9 @@ export const getItems = async (req: Request, res: Response) :Promise<void> => {
 
 export const addMenuItem = async (req: Request, res: Response) :Promise<void> => {
     try{
-        const newdata: IMenuItems = req.body
+        const newdata: IMenuItem = req.body
         console.log(newdata)
-        const nItem = new MenuItems( newdata )
+        const nItem = new MenuItem( newdata )
         await nItem.save()
         res.status(201).json(nItem)
     } catch(err){
@@ -26,11 +26,11 @@ export const addMenuItem = async (req: Request, res: Response) :Promise<void> =>
 
 export const updateItem = async (req: Request, res: Response) :Promise<void> => {
     const { id } = req.params;
-    const newdata: IMenuItems = req.body;
+    const newdata: IMenuItem = req.body;
     console.log(newdata);
     try {
         // Busca el Item por su ID
-        const item = await MenuItems.findByIdAndUpdate(id, newdata, { new: true }); // Devuelve el documento actualizado
+        const item = await MenuItem.findByIdAndUpdate(id, newdata, { new: true }); // Devuelve el documento actualizado
         
         if (!item) {
             res.status(404).json({ message: 'Item no encontrado' });
@@ -52,7 +52,7 @@ export const updateItem = async (req: Request, res: Response) :Promise<void> => 
 export const deleteItem = async (req: Request, res: Response) :Promise<void> => {
     const {id} = req.params
 try{
-    const item = await MenuItems.findByIdAndDelete(id)
+    const item = await MenuItem.findByIdAndDelete(id)
     if (!item) {
         res.status(404).json({ message: 'Item no encontrado' });
         return;
